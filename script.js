@@ -1,24 +1,30 @@
-const inputField=document.getElementById(input-box);
-const button=document.getElementById("add");
-const listContainer=document.getElementById("list-container");
-
-function addlist() {
-    var inputBox = document.getElementById('input-box');
-    var inputValue = inputBox.value;
-    if (inputValue.trim() !== "") {
-        var li = document.createElement('li');
-        li.textContent = inputValue;
-        var deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.style.marginLeft = "10px"; 
-        deleteButton.onclick = function() {
-            listContainer.removeChild(li);
-        };
-        li.appendChild(deleteButton);
-        var listContainer = document.getElementById('list-container');
-        listContainer.appendChild(li);
-        inputBox.value = "";
+const inputField = document.getElementById("input-box");
+const button = document.getElementById("add");
+const listContainer = document.getElementById("list-container");
+function addList() {
+    var inputValue = inputField.value.trim();
+    if (inputValue !== "") {
+        addToList(inputValue);
+        inputField.value = ""; 
     } else {
-        alert('Please enter some text!');
+        var promptValue = prompt('Please enter some text:');
+         if (promptValue !== null && promptValue.trim() !== "") {
+            addToList(promptValue);
+        } else {
+              alert('No valid text entered. Please try again.');
+        }
     }
 }
+function addToList(value) {
+    var li = document.createElement('li');
+    li.textContent = value;
+    var deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.style.marginLeft = "10px"; 
+    deleteButton.onclick = function() {
+        listContainer.removeChild(li);
+    };
+    li.appendChild(deleteButton);
+    listContainer.appendChild(li);
+}
+button.addEventListener('click', addList);
